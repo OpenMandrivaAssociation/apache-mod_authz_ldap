@@ -6,7 +6,7 @@
 Summary:	LDAP authorization module for apache
 Name:		apache-%{mod_name}
 Version:	0.26
-Release:	%mkrel 5
+Release:	%mkrel 6
 Group:		System/Servers
 License:	GPL
 URL:		http://authzldap.othello.ch/
@@ -31,8 +31,6 @@ Requires:	apache-conf >= 2.0.55
 Requires:	apache >= 2.0.55
 BuildRequires:	apache-devel >= 2.0.55
 BuildRequires:	file
-Provides:	apache2-mod_authz_ldap
-Obsoletes:	apache2-mod_authz_ldap
 Epoch:		1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
@@ -92,9 +90,6 @@ install -d %{buildroot}%{_sysconfdir}/httpd/modules.d
 install -m0755 .libs/*.so %{buildroot}%{_libdir}/apache-extramodules/
 install -m0644 %{mod_conf} %{buildroot}%{_sysconfdir}/httpd/modules.d/%{mod_conf}
 
-install -d %{buildroot}%{_var}/www/html/addon-modules
-ln -s ../../../..%{_docdir}/%{name}-%{version} %{buildroot}%{_var}/www/html/addon-modules/%{name}-%{version}
-
 %post
 if [ -f %{_var}/lock/subsys/httpd ]; then
     %{_initrddir}/httpd restart 1>&2;
@@ -118,6 +113,3 @@ fi
 %attr(0755,root,root) %{_libdir}/apache-extramodules/%{mod_so}
 %attr(0755,root,root) %{_bindir}/cert*
 %attr(0644,root,root) %{_mandir}/man1/cert*
-%{_var}/www/html/addon-modules/*
-
-
