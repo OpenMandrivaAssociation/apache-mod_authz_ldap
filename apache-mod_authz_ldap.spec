@@ -6,7 +6,7 @@
 Summary:	LDAP authorization module for apache
 Name:		apache-%{mod_name}
 Version:	0.26
-Release:	%mkrel 10
+Release:	%mkrel 11
 Group:		System/Servers
 License:	GPL
 URL:		http://authzldap.othello.ch/
