@@ -6,7 +6,7 @@
 Summary:	LDAP authorization module for apache
 Name:		apache-%{mod_name}
 Version:	0.26
-Release:	%mkrel 11
+Release:	%mkrel 12
 Group:		System/Servers
 License:	GPL
 URL:		http://authzldap.othello.ch/
@@ -17,6 +17,7 @@ Patch2:		mod_authz_ldap-0.22-passlog.patch
 Patch3:		mod_authz_ldap-0.25-build.patch
 Patch4:		mod_authz_ldap-0.26-subreq.patch
 Patch5:		mod_authz_ldap-0.26-apr1x.patch
+Patch6:		mod_authz_ldap-0.26-parser.patch
 BuildRequires:	openssl-devel
 BuildRequires:	openldap-devel
 BuildRequires:	automake1.7
@@ -49,6 +50,7 @@ aging, and authentication based on role or by configured filters.
 %patch3 -p1 -b .build
 %patch4 -p1 -b .subreq
 %patch5 -p1 -b .apr1x
+%patch6 -p1 -b .parser
 
 cp %{SOURCE1} %{mod_conf}
 
@@ -59,9 +61,9 @@ find . -type f|xargs file|grep 'text'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
 %build
 export WANT_AUTOCONF_2_5=1
 rm -f configure
-libtoolize --copy --force && aclocal-1.7 && autoconf --force && autoheader
+libtoolize --copy --force; aclocal-1.7; autoconf --force; autoheader
 
-export CPPFLAGS="`apr-1-config --includes` `apu-1-config --includes` -I%{_includedir}/openssl"
+export CPPFLAGS="`apr-1-config --includes` `apu-1-config --includes` -I%{_includedir}/openssl -DLDAP_DEPRECATED=1"
 
 %configure2_5x --localstatedir=/var/lib \
     --with-apxs=%{_sbindir}/apxs \
