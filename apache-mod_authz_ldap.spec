@@ -6,7 +6,7 @@
 Summary:	LDAP authorization module for apache
 Name:		apache-%{mod_name}
 Version:	0.26
-Release:	%mkrel 12
+Release:	%mkrel 13
 Group:		System/Servers
 License:	GPL
 URL:		http://authzldap.othello.ch/
@@ -18,6 +18,7 @@ Patch3:		mod_authz_ldap-0.25-build.patch
 Patch4:		mod_authz_ldap-0.26-subreq.patch
 Patch5:		mod_authz_ldap-0.26-apr1x.patch
 Patch6:		mod_authz_ldap-0.26-parser.patch
+Patch7:		mod_authz_ldap-0.26-setuser.patch
 BuildRequires:	openssl-devel
 BuildRequires:	openldap-devel
 BuildRequires:	automake1.7
@@ -51,6 +52,7 @@ aging, and authentication based on role or by configured filters.
 %patch4 -p1 -b .subreq
 %patch5 -p1 -b .apr1x
 %patch6 -p1 -b .parser
+%patch7 -p1 -b .setuser
 
 cp %{SOURCE1} %{mod_conf}
 
