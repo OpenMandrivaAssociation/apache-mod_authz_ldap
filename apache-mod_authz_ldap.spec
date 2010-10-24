@@ -5,20 +5,13 @@
 
 Summary:	LDAP authorization module for apache
 Name:		apache-%{mod_name}
-Version:	0.26
-Release:	%mkrel 16
+Version:	0.28
+Release:	%mkrel 1
 Group:		System/Servers
 License:	GPL
 URL:		http://authzldap.othello.ch/
-Source0:	%{mod_name}-%{version}.tar.bz2
+Source0:	%{mod_name}-%{version}.tar.gz
 Source1:	%{mod_conf}
-Patch1:		mod_authz_ldap-0.22-hook.patch
-Patch2:		mod_authz_ldap-0.22-passlog.patch
-Patch3:		mod_authz_ldap-0.25-build.patch
-Patch4:		mod_authz_ldap-0.26-subreq.patch
-Patch5:		mod_authz_ldap-0.26-apr1x.patch
-Patch6:		mod_authz_ldap-0.26-parser.patch
-Patch7:		mod_authz_ldap-0.26-setuser.patch
 BuildRequires:	openssl-devel
 BuildRequires:	openldap-devel
 BuildRequires:	automake1.7
@@ -27,11 +20,11 @@ Requires:	openldap
 Requires:	apache-mod_ssl
 Requires(pre): rpm-helper
 Requires(postun): rpm-helper
-Requires(pre):	apache-conf >= 2.0.55
-Requires(pre):	apache >= 2.0.55
-Requires:	apache-conf >= 2.0.55
-Requires:	apache >= 2.0.55
-BuildRequires:	apache-devel >= 2.0.55
+Requires(pre):	apache-conf >= 2.2.0
+Requires(pre):	apache >= 2.2.0
+Requires:	apache-conf >= 2.2.0
+Requires:	apache >= 2.2.0
+BuildRequires:	apache-devel >= 2.2.0
 BuildRequires:	file
 Epoch:		1
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
@@ -46,13 +39,6 @@ aging, and authentication based on role or by configured filters.
 %prep
 
 %setup -q -n %{mod_name}-%{version}
-%patch1 -p1 -b .hook
-%patch2 -p1 -b .passlog
-%patch3 -p1 -b .build
-%patch4 -p1 -b .subreq
-%patch5 -p1 -b .apr1x
-%patch6 -p1 -b .parser
-%patch7 -p1 -b .setuser
 
 cp %{SOURCE1} %{mod_conf}
 
@@ -61,9 +47,9 @@ find . -type f|xargs file|grep 'CRLF'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
 find . -type f|xargs file|grep 'text'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
 
 %build
-export WANT_AUTOCONF_2_5=1
-rm -f configure
-libtoolize --copy --force; aclocal-1.7; autoconf --force; autoheader
+#export WANT_AUTOCONF_2_5=1
+#rm -f configure
+#libtoolize --copy --force; aclocal-1.7; autoconf --force; autoheader; automake --add-missing
 
 export CPPFLAGS="`apr-1-config --includes` `apu-1-config --includes` -I%{_includedir}/openssl -DLDAP_DEPRECATED=1"
 
