@@ -6,7 +6,7 @@
 Summary:	LDAP authorization module for apache
 Name:		apache-%{mod_name}
 Version:	0.28
-Release:	%mkrel 2
+Release:	%mkrel 3
 Group:		System/Servers
 License:	GPL
 URL:		http://authzldap.othello.ch/
@@ -14,7 +14,7 @@ Source0:	%{mod_name}-%{version}.tar.gz
 Source1:	%{mod_conf}
 BuildRequires:	openssl-devel
 BuildRequires:	openldap-devel
-BuildRequires:	automake1.7
+BuildRequires:	automake
 BuildRequires:	autoconf2.5
 Requires:	openldap
 Requires:	apache-mod_ssl
@@ -49,7 +49,7 @@ find . -type f|xargs file|grep 'text'|cut -d: -f1|xargs perl -p -i -e 's/\r//'
 %build
 #export WANT_AUTOCONF_2_5=1
 #rm -f configure
-#libtoolize --copy --force; aclocal-1.7; autoconf --force; autoheader; automake --add-missing
+#libtoolize --copy --force; aclocal; autoconf --force; autoheader; automake --add-missing
 
 export CPPFLAGS="`apr-1-config --includes` `apu-1-config --includes` -I%{_includedir}/openssl -DLDAP_DEPRECATED=1"
 
