@@ -9,7 +9,7 @@ Version:	0.28
 Release:	6
 Group:		System/Servers
 License:	GPL
-URL:		http://authzldap.othello.ch/
+URL:		https://authzldap.othello.ch/
 Source0:	%{mod_name}-%{version}.tar.gz
 Source1:	%{mod_conf}
 BuildRequires:	openssl-devel
