@@ -12,6 +12,8 @@ License:	GPL
 URL:		https://authzldap.othello.ch/
 Source0:	%{mod_name}-%{version}.tar.gz
 Source1:	%{mod_conf}
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
 BuildRequires:	openssl-devel
 BuildRequires:	openldap-devel
 BuildRequires:	automake
